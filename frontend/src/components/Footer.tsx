@@ -1,8 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const handleLetterClick = (e: React.MouseEvent, letter: string) => {
+    e.preventDefault();
+    const target = `letter-${letter}`;
+    // If already on browse page, just scroll
+    if (window.location.pathname === '/browse') {
+      document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState(null, '', `/browse#${target}`);
+    } else {
+      navigate(`/browse#${target}`);
+    }
+  };
+
   return (
     <footer className="bg-forest-900 text-forest-200 mt-16">
       {/* A-Z Quick Links */}
@@ -11,9 +25,9 @@ export default function Footer() {
           <p className="text-xs text-forest-400 uppercase tracking-wider mb-2">Browse Animals A-Z</p>
           <div className="flex flex-wrap gap-1">
             {LETTERS.map(l => (
-              <Link key={l} to={`/browse#letter-${l}`} className="w-8 h-8 flex items-center justify-center text-xs font-bold text-forest-400 hover:text-white hover:bg-forest-700 rounded transition">
+              <a key={l} href={`/browse#letter-${l}`} onClick={(e) => handleLetterClick(e, l)} className="w-8 h-8 flex items-center justify-center text-xs font-bold text-forest-400 hover:text-white hover:bg-forest-700 rounded transition">
                 {l}
-              </Link>
+              </a>
             ))}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getAnimals } from '../api/animals';
 import { proxyImage, placeholderImage, statusColor } from '../utils/helpers';
 import type { AnimalCard } from '../types';
@@ -9,6 +9,7 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 export default function BrowsePage() {
   const [animals, setAnimals] = useState<AnimalCard[]>([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     getAnimals({ page: 1, size: 500, sort: 'name_asc' })
@@ -16,6 +17,16 @@ export default function BrowsePage() {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
+
+  // Scroll to hash anchor after load
+  useEffect(() => {
+    if (!loading && location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+  }, [loading, location.hash]);
 
   const grouped = useMemo(() => {
     const map: Record<string, AnimalCard[]> = {};

@@ -63,9 +63,10 @@ export default function AnimalDetailPage() {
     </div>
   );
 
+  const heroFallback = proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name);
   const images = animal.images.length > 0
     ? animal.images.map(img => ({ ...img, url: proxyImage(img.url) }))
-    : [{ id: 0, url: proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name), is_hero: true }];
+    : [{ id: 0, url: heroFallback, is_hero: true }];
 
   const funFactsList = animal.fun_facts ? animal.fun_facts.split(/[.!?]+/).filter(f => f.trim().length > 5).map(f => f.trim()) : [];
   const dbFacts = animal.facts.map(f => f.content);
@@ -91,7 +92,14 @@ export default function AnimalDetailPage() {
               src={images[imgIdx].url}
               alt={animal.common_name}
               className="w-full h-full object-cover"
-              onError={(e) => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }}
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.src !== heroFallback && heroFallback !== img.src) {
+                  img.src = heroFallback;
+                } else {
+                  img.src = placeholderImage(animal.common_name);
+                }
+              }}
             />
             <div className="absolute top-4 right-4"><FavoriteButton animalId={animal.id} /></div>
             {images.length > 1 && (
