@@ -11,9 +11,18 @@ interface Props {
   className?: string;
 }
 
+// Color by observation count
+function getAreaColor(count: number): string {
+  if (count >= 50) return '#dc2626';
+  if (count >= 20) return '#ea580c';
+  if (count >= 5) return '#2d8a2d';
+  return '#1a7fe6';
+}
+
 export default function MapView({ hotspots, onMarkerClick, center = [20, 0], zoom = 2, className = 'h-[600px]' }: Props) {
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const layerGroupRef = useRef<L.LayerGroup | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -22,32 +31,40 @@ export default function MapView({ hotspots, onMarkerClick, center = [20, 0], zoo
       attribution: '&copy; OpenStreetMap contributors',
       maxZoom: 18,
     }).addTo(mapRef.current);
+    layerGroupRef.current = L.layerGroup().addTo(mapRef.current);
     return () => { mapRef.current?.remove(); mapRef.current = null; };
   }, []);
 
   useEffect(() => {
-    if (!mapRef.current) return;
-    // Clear existing markers
-    mapRef.current.eachLayer(l => { if (l instanceof L.Marker) mapRef.current!.removeLayer(l); });
+    if (!mapRef.current || !layerGroupRef.current) return;
+    layerGroupRef.current.clearLayers();
 
     hotspots.forEach(h => {
-      const icon = L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="background:#2d8a2d;color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${h.observation_count > 99 ? '99+' : h.observation_count}</div>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 16],
-      });
-      const marker = L.marker([h.latitude, h.longitude], { icon }).addTo(mapRef.current!);
-      marker.bindPopup(`
-        <div style="text-align:center;min-width:120px">
-          ${h.thumbnail_url ? `<img src="/api/v1/images/proxy?url=${encodeURIComponent(h.thumbnail_url)}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;margin:0 auto 8px" />` : ''}
-          <div style="font-weight:600">${h.animal_name}</div>
+      const color = getAreaColor(h.observation_count);
+      // Radius based on observation count (min 50km, max 300km)
+      const radius = Math.min(300000, Math.max(50000, h.observation_count * 15000));
+
+      const circle = L.circle([h.latitude, h.longitude], {
+        radius,
+        color: color,
+        weight: 2,
+        opacity: 0.8,
+        fillColor: color,
+        fillOpacity: 0.25,
+      }).addTo(layerGroupRef.current!);
+
+      circle.bindPopup(`
+        <div style="text-align:center;min-width:140px;padding:4px">
+          ${h.thumbnail_url ? `<img src="/api/v1/images/proxy?url=${encodeURIComponent(h.thumbnail_url)}" style="width:100px;height:75px;object-fit:cover;border-radius:8px;margin:0 auto 8px" />` : ''}
+          <div style="font-weight:700;font-size:14px;margin-bottom:2px">${h.animal_name}</div>
           <div style="font-size:12px;color:#666">${h.observation_count} observations</div>
+          <a href="/animal/${h.animal_slug}" style="font-size:12px;color:#2d8a2d;text-decoration:none;font-weight:600">View Profile →</a>
         </div>
       `);
-      if (onMarkerClick) marker.on('click', () => onMarkerClick(h));
+
+      if (onMarkerClick) circle.on('click', () => onMarkerClick(h));
     });
   }, [hotspots, onMarkerClick]);
 
-  return <div ref={containerRef} className={`rounded-lg ${className}`} />;
+  return <div ref={containerRef} className={`rounded-xl ${className}`} />;
 }

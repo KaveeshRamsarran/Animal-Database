@@ -1,31 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#2d8a2d"/>
-  <ellipse cx="50" cy="50" rx="20" ry="48" fill="none" stroke="#1a521a" stroke-width="2"/>
-  <ellipse cx="50" cy="50" rx="36" ry="48" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <line x1="2" y1="50" x2="98" y2="50" stroke="#1a521a" stroke-width="2"/>
-  <ellipse cx="50" cy="30" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <ellipse cx="50" cy="70" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <circle cx="50" cy="50" r="48" fill="none" stroke="#236e23" stroke-width="3"/>
-  <!-- Land masses -->
-  <path d="M30 25 Q35 20 45 22 Q48 28 42 32 Q36 30 30 25Z" fill="#4fa84f"/>
-  <path d="M55 18 Q65 16 70 22 Q68 28 60 30 Q54 26 55 18Z" fill="#4fa84f"/>
-  <path d="M20 42 Q28 38 35 42 Q38 50 30 55 Q22 52 20 42Z" fill="#4fa84f"/>
-  <path d="M60 40 Q70 36 78 42 Q76 50 68 52 Q62 48 60 40Z" fill="#4fa84f"/>
-  <path d="M35 60 Q45 56 52 62 Q50 70 42 72 Q36 68 35 60Z" fill="#4fa84f"/>
-  <path d="M58 62 Q66 58 72 64 Q70 72 64 74 Q58 70 58 62Z" fill="#4fa84f"/>
-
-  <circle cx="50" cy="50" r="48" fill="#2d8a2d"/>
-  <ellipse cx="50" cy="50" rx="20" ry="48" fill="none" stroke="#1a521a" stroke-width="2"/>
-  <ellipse cx="50" cy="50" rx="36" ry="48" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <line x1="2" y1="50" x2="98" y2="50" stroke="#1a521a" stroke-width="2"/>
-  <ellipse cx="50" cy="30" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <ellipse cx="50" cy="70" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
-  <circle cx="50" cy="50" r="48" fill="none" stroke="#236e23" stroke-width="3"/>
-  <!-- Land masses -->
-  <path d="M30 25 Q35 20 45 22 Q48 28 42 32 Q36 30 30 25Z" fill="#4fa84f"/>
-  <path d="M55 18 Q65 16 70 22 Q68 28 60 30 Q54 26 55 18Z" fill="#4fa84f"/>
-  <path d="M20 42 Q28 38 35 42 Q38 50 30 55 Q22 52 20 42Z" fill="#4fa84f"/>
-  <path d="M60 40 Q70 36 78 42 Q76 50 68 52 Q62 48 60 40Z" fill="#4fa84f"/>
-  <path d="M35 60 Q45 56 52 62 Q50 70 42 72 Q36 68 35 60Z" fill="#4fa84f"/>
-  <path d="M58 62 Q66 58 72 64 Q70 72 64 74 Q58 70 58 62Z" fill="#4fa84f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<path d="M 254 0 L 234 0 L 233 1 L 210 3 L 188 8 L 175 13 L 172 13 L 169 15 L 166 15 L 147 23 L 135 30 L 133 30 L 109 45 L 86 63 L 57 93 L 45 109 L 29 135 L 19 156 L 10 181 L 4 205 L 2 223 L 1 224 L 1 233 L 0 234 L 0 259 L 1 260 L 96 295 L 101 298 L 101 344 L 102 347 L 153 419 L 148 477 L 147 478 L 147 488 L 152 489 L 156 492 L 164 494 L 178 500 L 185 501 L 188 503 L 192 503 L 212 508 L 218 508 L 224 510 L 234 510 L 235 511 L 241 499 L 255 464 L 255 244 L 176 223 L 172 219 L 143 178 L 143 176 L 149 163 L 157 165 L 179 174 L 186 174 L 192 171 L 268 110 L 274 104 L 276 95 Z" fill="#54e360" fill-rule="evenodd"/>
+<path d="M 482 376 L 480 379 Z M 489 361 L 488 364 Z M 480 132 L 482 135 Z M 473 120 L 475 123 Z M 256 0 L 258 15 L 261 24 L 261 28 L 277 94 L 277 99 L 275 104 L 267 112 L 256 120 L 256 243 L 270 248 L 339 318 L 341 321 L 342 326 L 341 332 L 337 338 L 284 396 L 259 458 L 256 463 L 256 511 L 277 511 L 278 510 L 287 510 L 288 509 L 311 506 L 345 496 L 350 493 L 362 489 L 393 472 L 425 448 L 447 426 L 466 402 L 479 381 L 478 382 L 474 378 L 435 350 L 429 344 L 417 303 L 416 296 L 413 289 L 357 266 L 351 261 L 318 175 L 318 166 L 320 162 L 327 156 L 391 147 L 436 80 L 439 77 L 449 87 L 418 57 L 393 39 L 366 24 L 339 13 L 336 13 L 330 10 L 315 7 L 311 5 L 306 5 L 294 2 L 279 1 L 278 0 L 277 1 L 276 0 Z" fill="#0065a3" fill-rule="evenodd"/>
+<path d="M 256 244 L 256 462 L 283 396 L 336 338 L 340 332 L 341 327 L 340 321 L 338 318 L 270 249 Z M 439 78 L 391 148 L 327 157 L 321 162 L 319 166 L 319 175 L 352 261 L 357 265 L 413 288 L 415 290 L 417 296 L 418 303 L 430 344 L 435 349 L 474 377 L 478 381 L 487 365 L 498 338 L 508 298 L 510 273 L 511 272 L 511 239 L 510 238 L 509 220 L 501 183 L 488 148 L 477 127 L 464 107 L 449 88 Z" fill="#00b44b" fill-rule="evenodd"/>
+<path d="M 255 465 L 242 499 L 236 511 L 255 511 Z M 0 260 L 1 288 L 9 327 L 21 360 L 31 380 L 42 398 L 62 424 L 87 449 L 113 469 L 131 480 L 146 487 L 152 419 L 101 347 L 100 344 L 100 298 Z M 255 121 L 192 172 L 186 175 L 179 175 L 157 166 L 149 164 L 144 178 L 176 222 L 255 243 Z" fill="#008adf" fill-rule="evenodd"/>
 </svg>

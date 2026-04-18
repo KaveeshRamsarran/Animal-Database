@@ -4,7 +4,10 @@
 
 @layer base {
   body {
-    @apply text-gray-800 antialiased;
+    @apply text-gray-800 antialiased bg-gray-50;
+  }
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -12,5 +15,25 @@
   .leaflet-container {
     width: 100%;
     border-radius: 0.5rem;
+  }
+  /* Hide scrollbar for A-Z bar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Conservation status badges */
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide;
+  }
+  /* Section headings */
+  .section-heading {
+    @apply font-display text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200;
+  }
+  /* Info cards */
+  .info-card {
+    @apply bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition;
   }
 }

@@ -10,7 +10,7 @@ interface Props {
 
 export default function AnimalCard({ animal, onCompareToggle, isCompareSelected }: Props) {
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden group relative">
+    <div className="group relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition-all duration-300">
       {onCompareToggle && (
         <button
           onClick={(e) => { e.preventDefault(); onCompareToggle(animal.id); }}
@@ -23,31 +23,34 @@ export default function AnimalCard({ animal, onCompareToggle, isCompareSelected 
         </button>
       )}
       <Link to={`/animal/${animal.slug}`}>
-        <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+        <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
           <img
             src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)}
             alt={animal.common_name}
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
             loading="lazy"
             onError={(e) => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
         </div>
         <div className="p-4">
           <div className="flex items-start justify-between gap-2">
-            <div>
-              <h3 className="font-display font-semibold text-lg text-gray-800">{animal.common_name}</h3>
-              <p className="text-sm text-gray-500 italic">{animal.scientific_name}</p>
+            <div className="min-w-0">
+              <h3 className="font-display font-bold text-lg text-gray-900 group-hover:text-forest-700 transition truncate">{animal.common_name}</h3>
+              <p className="text-sm text-gray-500 italic truncate">{animal.scientific_name}</p>
             </div>
             {animal.conservation_status && (
-              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap ${statusColor(animal.conservation_status.code)}`}>
+              <span className={`status-badge text-[10px] flex-shrink-0 ${statusColor(animal.conservation_status.code)}`}>
                 {animal.conservation_status.code}
               </span>
             )}
           </div>
-          <div className="flex items-center gap-3 mt-3 text-xs text-gray-500">
-            {animal.class_name && <span className="bg-forest-50 text-forest-700 px-2 py-0.5 rounded">{animal.class_name}</span>}
-            {animal.diet && <span>{animal.diet}</span>}
-            {animal.environment_type && <span>{animal.environment_type}</span>}
+          {animal.habitat_summary && (
+            <p className="text-xs text-gray-500 mt-2 line-clamp-2">{animal.habitat_summary}</p>
+          )}
+          <div className="flex items-center gap-2 mt-3 flex-wrap">
+            {animal.class_name && <span className="bg-forest-50 text-forest-700 px-2 py-0.5 rounded text-xs font-medium">{animal.class_name}</span>}
+            {animal.diet && <span className="bg-sand-50 text-sand-700 px-2 py-0.5 rounded text-xs font-medium">{animal.diet}</span>}
           </div>
         </div>
       </Link>

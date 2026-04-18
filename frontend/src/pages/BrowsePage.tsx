@@ -1,57 +1,145 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import AnimalGrid from '../components/AnimalGrid';
-import FilterSidebar from '../components/FilterSidebar';
-import PaginationControls from '../components/PaginationControls';
-import LoadingSkeleton from '../components/LoadingSkeleton';
-import ErrorBanner from '../components/ErrorBanner';
-import { getAnimals, type AnimalFilters } from '../api/animals';
-import type { AnimalCard, PaginatedResponse } from '../types';
+import { useEffect, useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { getAnimals } from '../api/animals';
+import { proxyImage, placeholderImage, statusColor } from '../utils/helpers';
+import type { AnimalCard } from '../types';
+
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 export default function BrowsePage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [data, setData] = useState<PaginatedResponse<AnimalCard> | null>(null);
+  const [animals, setAnimals] = useState<AnimalCard[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
-  const filters: Record<string, string> = {};
-  for (const [k, v] of searchParams.entries()) filters[k] = v;
-  const page = parseInt(filters.page || '1');
+  useEffect(() => {
+    getAnimals({ page: 1, size: 100, sort: 'name_asc' })
+      .then(data => setAnimals(data.items))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
-  const fetchData = useCallback(() => {
-    setLoading(true);
-    setError('');
-    const params: AnimalFilters = { ...filters, page, size: 20 };
-    getAnimals(params).then(setData).catch(() => setError('Failed to load animals')).finally(() => setLoading(false));
-  }, [searchParams.toString()]);
+  const grouped = useMemo(() => {
+    const map: Record<string, AnimalCard[]> = {};
+    LETTERS.forEach(l => { map[l] = []; });
+    animals.forEach(a => {
+      const first = a.common_name.charAt(0).toUpperCase();
+      if (map[first]) map[first].push(a);
+    });
+    return map;
+  }, [animals]);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  const totalSpecies = animals.length;
 
-  const handleFilterChange = (key: string, value: string) => {
-    const next = new URLSearchParams(searchParams);
-    if (value) next.set(key, value); else next.delete(key);
-    if (key !== 'page') next.delete('page');
-    setSearchParams(next);
-  };
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="animate-pulse space-y-8">
+          <div className="h-10 bg-gray-200 rounded w-64" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-48 bg-gray-200 rounded-xl" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="font-display text-3xl font-bold text-gray-800 mb-6">Browse Animals</h1>
-      <div className="flex gap-6">
-        <div className="hidden md:block w-56 flex-shrink-0">
-          <FilterSidebar filters={filters} onChange={handleFilterChange} />
-        </div>
-        <div className="flex-1">
-          {error && <ErrorBanner message={error} onRetry={fetchData} />}
-          {loading ? <LoadingSkeleton /> : data && (
-            <>
-              <p className="text-sm text-gray-500 mb-4">{data.total} animals found</p>
-              <AnimalGrid animals={data.items} />
-              <PaginationControls page={data.page} pages={data.pages} onChange={p => handleFilterChange('page', String(p))} />
-            </>
-          )}
+      {/* Hero Stats Banner */}
+      <div className="bg-gradient-to-r from-forest-800 to-forest-900 text-white rounded-2xl p-8 mb-10">
+        <h1 className="font-display text-4xl font-bold mb-2">Animals A-Z</h1>
+        <p className="text-forest-200 text-lg mb-6">Browse our complete encyclopedia of wildlife species</p>
+        <div className="flex gap-8">
+          <div>
+            <div className="text-3xl font-bold">{totalSpecies}</div>
+            <div className="text-sm text-forest-300 uppercase tracking-wide">Species</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold">{LETTERS.filter(l => grouped[l].length > 0).length}</div>
+            <div className="text-sm text-forest-300 uppercase tracking-wide">Letters</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold">7</div>
+            <div className="text-sm text-forest-300 uppercase tracking-wide">Continents</div>
+          </div>
         </div>
       </div>
+
+      {/* Letter Sections */}
+      {LETTERS.map(letter => {
+        const items = grouped[letter];
+        if (items.length === 0) return null;
+
+        // Featured animals (first 4 with images)
+        const featured = items.slice(0, 4);
+        const rest = items.slice(4);
+
+        return (
+          <section key={letter} id={`letter-${letter}`} className="mb-12 scroll-mt-28">
+            {/* Letter Header */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-14 h-14 bg-forest-700 text-white rounded-xl flex items-center justify-center text-2xl font-bold font-display">
+                {letter}
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">{items.length} Animal{items.length !== 1 ? 's' : ''}</h2>
+                <p className="text-sm text-gray-500">Starting with the letter {letter}</p>
+              </div>
+            </div>
+
+            {/* Featured Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              {featured.map(animal => (
+                <Link
+                  key={animal.id}
+                  to={`/animal/${animal.slug}`}
+                  className="group relative rounded-xl overflow-hidden bg-gray-100 aspect-[4/3] block"
+                >
+                  <img
+                    src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)}
+                    alt={animal.common_name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-bold text-lg leading-tight">{animal.common_name}</h3>
+                    <p className="text-white/70 text-sm italic">{animal.scientific_name}</p>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      {animal.conservation_status && (
+                        <span className={`status-badge text-[10px] ${statusColor(animal.conservation_status.code)}`}>
+                          {animal.conservation_status.code}
+                        </span>
+                      )}
+                      {animal.class_name && (
+                        <span className="text-white/60 text-xs">{animal.class_name}</span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Additional Animals List */}
+            {rest.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                {rest.map(animal => (
+                  <Link
+                    key={animal.id}
+                    to={`/animal/${animal.slug}`}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-forest-50 text-sm text-gray-700 hover:text-forest-700 transition group"
+                  >
+                    <svg className="w-3 h-3 text-forest-500 opacity-0 group-hover:opacity-100 transition" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
+                    <span className="truncate">{animal.common_name}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+        );
+      })}
     </div>
   );
 }
