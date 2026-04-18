@@ -16,3 +16,11 @@ export function statusColor(code?: string): string {
 export function placeholderImage(name: string): string {
   return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=400&background=2d8a2d&color=fff&bold=true`;
 }
+
+export function proxyImage(url: string | undefined | null): string {
+  if (!url) return '';
+  if (url.includes('upload.wikimedia.org') || url.includes('commons.wikimedia.org')) {
+    return `/api/v1/images/proxy?url=${encodeURIComponent(url)}`;
+  }
+  return url;
+}

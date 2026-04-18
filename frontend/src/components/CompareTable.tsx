@@ -1,5 +1,5 @@
 import type { AnimalCompare } from '../types';
-import { statusColor, placeholderImage } from '../utils/helpers';
+import { statusColor, placeholderImage, proxyImage } from '../utils/helpers';
 
 interface Props {
   animals: AnimalCompare[];
@@ -28,7 +28,7 @@ export default function CompareTable({ animals }: Props) {
             <th className="p-4 bg-gray-50 text-left text-sm font-medium text-gray-500 w-36">Attribute</th>
             {animals.map(a => (
               <th key={a.id} className="p-4 bg-gray-50 text-center">
-                <img src={a.hero_image_url || placeholderImage(a.common_name)} alt="" className="w-20 h-20 rounded-full object-cover mx-auto mb-2" />
+                <img src={proxyImage(a.hero_image_url) || placeholderImage(a.common_name)} alt="" className="w-20 h-20 rounded-full object-cover mx-auto mb-2" />
                 <div className="font-display font-semibold">{a.common_name}</div>
                 <div className="text-xs text-gray-500 italic">{a.scientific_name}</div>
                 {a.conservation_status && <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-semibold ${statusColor(a.conservation_status.code)}`}>{a.conservation_status.code}</span>}

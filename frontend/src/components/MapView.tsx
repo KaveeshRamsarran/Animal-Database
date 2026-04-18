@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import type { HotspotOut } from '../types';
 
 interface Props {
@@ -39,7 +40,7 @@ export default function MapView({ hotspots, onMarkerClick, center = [20, 0], zoo
       const marker = L.marker([h.latitude, h.longitude], { icon }).addTo(mapRef.current!);
       marker.bindPopup(`
         <div style="text-align:center;min-width:120px">
-          ${h.thumbnail_url ? `<img src="${h.thumbnail_url}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;margin:0 auto 8px" />` : ''}
+          ${h.thumbnail_url ? `<img src="/api/v1/images/proxy?url=${encodeURIComponent(h.thumbnail_url)}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;margin:0 auto 8px" />` : ''}
           <div style="font-weight:600">${h.animal_name}</div>
           <div style="font-size:12px;color:#666">${h.observation_count} observations</div>
         </div>

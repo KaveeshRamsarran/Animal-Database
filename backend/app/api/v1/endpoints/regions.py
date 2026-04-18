@@ -27,7 +27,7 @@ async def list_countries(
 ):
     q = select(Country).options(selectinload(Country.continent))
     if continent:
-        q = q.join(Country.continent).where(Continent.name.ilike(continent))
+        q = q.join(Country.continent).where(Continent.code.ilike(continent))
     q = q.order_by(Country.name)
     result = await db.execute(q)
     items = []

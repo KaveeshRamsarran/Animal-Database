@@ -5,7 +5,7 @@ import { getDistribution } from '../api/map';
 import TaxonomyPanel from '../components/TaxonomyPanel';
 import MapView from '../components/MapView';
 import FavoriteButton from '../components/FavoriteButton';
-import { statusColor, placeholderImage } from '../utils/helpers';
+import { statusColor, placeholderImage, proxyImage } from '../utils/helpers';
 import type { AnimalDetail, HotspotOut } from '../types';
 
 export default function AnimalDetailPage() {
@@ -29,7 +29,7 @@ export default function AnimalDetailPage() {
   if (loading) return <div className="max-w-7xl mx-auto px-4 py-16 text-center text-gray-400">Loading...</div>;
   if (!animal) return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h2 className="text-2xl font-bold text-gray-600">Animal not found</h2><Link to="/browse" className="text-forest-600 hover:underline mt-4 inline-block">Browse animals</Link></div>;
 
-  const images = animal.images.length > 0 ? animal.images : [{ id: 0, url: placeholderImage(animal.common_name), is_hero: true }];
+  const images = animal.images.length > 0 ? animal.images.map(img => ({ ...img, url: proxyImage(img.url) })) : [{ id: 0, url: placeholderImage(animal.common_name), is_hero: true }];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">

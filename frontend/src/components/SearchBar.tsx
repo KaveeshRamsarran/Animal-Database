@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { searchAnimals } from '../api/animals';
 import { useDebounce } from '../hooks/useDebounce';
 import type { AnimalCard } from '../types';
-import { placeholderImage } from '../utils/helpers';
+import { placeholderImage, proxyImage } from '../utils/helpers';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
@@ -44,7 +44,7 @@ export default function SearchBar() {
               className="flex items-center gap-3 w-full px-3 py-2 hover:bg-gray-50 text-left"
               onClick={() => { navigate(`/animal/${a.slug}`); setOpen(false); setQuery(''); }}
             >
-              <img src={a.thumbnail_url || placeholderImage(a.common_name)} alt="" className="w-10 h-10 rounded-full object-cover" />
+              <img src={proxyImage(a.thumbnail_url) || placeholderImage(a.common_name)} alt="" className="w-10 h-10 rounded-full object-cover" />
               <div>
                 <div className="text-sm font-medium text-gray-800">{a.common_name}</div>
                 <div className="text-xs text-gray-500 italic">{a.scientific_name}</div>

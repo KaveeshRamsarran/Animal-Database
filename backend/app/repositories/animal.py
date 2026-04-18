@@ -129,7 +129,9 @@ class AnimalRepository:
 
     async def search(self, term: str, limit: int = 10) -> list[Animal]:
         like = f"%{term}%"
-        q = select(Animal).where(
+        q = select(Animal).options(
+            selectinload(Animal.conservation_status),
+        ).where(
             or_(Animal.common_name.ilike(like), Animal.scientific_name.ilike(like))
         ).limit(limit)
         result = await self.db.execute(q)

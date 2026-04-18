@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { AnimalCard as AnimalCardType } from '../types';
-import { statusColor, placeholderImage } from '../utils/helpers';
+import { statusColor, placeholderImage, proxyImage } from '../utils/helpers';
 
 interface Props {
   animal: AnimalCardType;
@@ -25,10 +25,11 @@ export default function AnimalCard({ animal, onCompareToggle, isCompareSelected 
       <Link to={`/animal/${animal.slug}`}>
         <div className="aspect-[4/3] overflow-hidden bg-gray-100">
           <img
-            src={animal.hero_image_url || animal.thumbnail_url || placeholderImage(animal.common_name)}
+            src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)}
             alt={animal.common_name}
             className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
             loading="lazy"
+            onError={(e) => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }}
           />
         </div>
         <div className="p-4">
