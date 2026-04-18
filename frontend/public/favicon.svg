@@ -1,1 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌍</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#2d8a2d"/>
+  <ellipse cx="50" cy="50" rx="20" ry="48" fill="none" stroke="#1a521a" stroke-width="2"/>
+  <ellipse cx="50" cy="50" rx="36" ry="48" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <line x1="2" y1="50" x2="98" y2="50" stroke="#1a521a" stroke-width="2"/>
+  <ellipse cx="50" cy="30" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <ellipse cx="50" cy="70" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#236e23" stroke-width="3"/>
+  <!-- Land masses -->
+  <path d="M30 25 Q35 20 45 22 Q48 28 42 32 Q36 30 30 25Z" fill="#4fa84f"/>
+  <path d="M55 18 Q65 16 70 22 Q68 28 60 30 Q54 26 55 18Z" fill="#4fa84f"/>
+  <path d="M20 42 Q28 38 35 42 Q38 50 30 55 Q22 52 20 42Z" fill="#4fa84f"/>
+  <path d="M60 40 Q70 36 78 42 Q76 50 68 52 Q62 48 60 40Z" fill="#4fa84f"/>
+  <path d="M35 60 Q45 56 52 62 Q50 70 42 72 Q36 68 35 60Z" fill="#4fa84f"/>
+  <path d="M58 62 Q66 58 72 64 Q70 72 64 74 Q58 70 58 62Z" fill="#4fa84f"/>
+
+  <circle cx="50" cy="50" r="48" fill="#2d8a2d"/>
+  <ellipse cx="50" cy="50" rx="20" ry="48" fill="none" stroke="#1a521a" stroke-width="2"/>
+  <ellipse cx="50" cy="50" rx="36" ry="48" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <line x1="2" y1="50" x2="98" y2="50" stroke="#1a521a" stroke-width="2"/>
+  <ellipse cx="50" cy="30" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <ellipse cx="50" cy="70" rx="40" ry="12" fill="none" stroke="#1a521a" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#236e23" stroke-width="3"/>
+  <!-- Land masses -->
+  <path d="M30 25 Q35 20 45 22 Q48 28 42 32 Q36 30 30 25Z" fill="#4fa84f"/>
+  <path d="M55 18 Q65 16 70 22 Q68 28 60 30 Q54 26 55 18Z" fill="#4fa84f"/>
+  <path d="M20 42 Q28 38 35 42 Q38 50 30 55 Q22 52 20 42Z" fill="#4fa84f"/>
+  <path d="M60 40 Q70 36 78 42 Q76 50 68 52 Q62 48 60 40Z" fill="#4fa84f"/>
+  <path d="M35 60 Q45 56 52 62 Q50 70 42 72 Q36 68 35 60Z" fill="#4fa84f"/>
+  <path d="M58 62 Q66 58 72 64 Q70 72 64 74 Q58 70 58 62Z" fill="#4fa84f"/>
+</svg>

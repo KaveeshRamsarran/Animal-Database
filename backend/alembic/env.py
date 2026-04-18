@@ -5,7 +5,7 @@ import os, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from app.db.base import Base
+from app.db.base_all import Base
 from app.core.config import get_settings
 
 config = context.config

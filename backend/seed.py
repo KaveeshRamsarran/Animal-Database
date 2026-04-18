@@ -1,7 +1,7 @@
 """Seed script to populate initial data without external API calls."""
 import asyncio
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from app.db.base import Base
+from app.db.base_all import Base
 from app.core.config import get_settings
 from app.core.security import hash_password
 from app.models.user import User
