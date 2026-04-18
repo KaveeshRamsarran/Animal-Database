@@ -15,6 +15,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import FavoritesPage from './pages/FavoritesPage';
 import AdminPage from './pages/AdminPage';
+import BiomesPage from './pages/BiomesPage';
 
 export default function App() {
   const { loadUser, token } = useAuthStore();
@@ -31,6 +32,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/browse" element={<BrowsePage />} />
+            <Route path="/biomes" element={<BiomesPage />} />
             <Route path="/animal/:slug" element={<AnimalDetailPage />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/compare" element={<ComparePage />} />

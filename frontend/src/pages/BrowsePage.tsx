@@ -11,7 +11,7 @@ export default function BrowsePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAnimals({ page: 1, size: 100, sort: 'name_asc' })
+    getAnimals({ page: 1, size: 500, sort: 'name_asc' })
       .then(data => setAnimals(data.items))
       .catch(() => {})
       .finally(() => setLoading(false));

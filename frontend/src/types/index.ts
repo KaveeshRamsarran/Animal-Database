@@ -65,6 +65,7 @@ export interface AnimalCard {
   diet?: string;
   habitat_summary?: string;
   environment_type?: string;
+  biome?: string;
   observation_count: number;
 }
 
@@ -93,7 +94,6 @@ export interface AnimalDetail extends AnimalCard {
   fun_facts?: string;
   wiki_summary?: string;
   is_domesticated: boolean;
-  biome?: string;
   created_at?: string;
   updated_at?: string;
   continent?: ContinentOut;

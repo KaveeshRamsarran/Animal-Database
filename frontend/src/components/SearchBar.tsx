@@ -31,7 +31,7 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="Search animals..."
-        className="w-48 lg:w-64 px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-forest-400"
+        className="w-48 lg:w-64 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-forest-400"
         value={query}
         onChange={e => { setQuery(e.target.value); setOpen(true); }}
         onFocus={() => results.length > 0 && setOpen(true)}

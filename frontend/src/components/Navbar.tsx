@@ -27,6 +27,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-1">
               <Link to="/browse" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Animals</Link>
               <Link to="/map" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Map</Link>
+              <Link to="/biomes" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Biomes</Link>
               <Link to="/explore" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Explore</Link>
               <Link to="/compare" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Compare</Link>
             </div>
@@ -61,6 +62,7 @@ export default function Navbar() {
             <div className="md:hidden pb-4 space-y-2">
               <SearchBar />
               <Link to="/browse" className="block py-2 text-forest-200 hover:text-white">Animals</Link>
+              <Link to="/biomes" className="block py-2 text-forest-200 hover:text-white">Biomes</Link>
               <Link to="/map" className="block py-2 text-forest-200 hover:text-white">Map</Link>
               <Link to="/explore" className="block py-2 text-forest-200 hover:text-white">Explore</Link>
               <Link to="/compare" className="block py-2 text-forest-200 hover:text-white">Compare</Link>

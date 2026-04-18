@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("", response_model=PaginatedResponse[AnimalCard])
 async def list_animals(
     page: int = Query(1, ge=1),
-    size: int = Query(20, ge=1, le=100),
+    size: int = Query(20, ge=1, le=500),
     search: str | None = None,
     class_name: str | None = None,
     continent: str | None = None,

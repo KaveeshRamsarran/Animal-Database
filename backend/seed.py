@@ -1,5 +1,8 @@
 """Seed script to populate initial data without external API calls."""
 import asyncio
+import urllib.request
+import urllib.parse
+import json as json_lib
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from app.db.base_all import Base
 from app.core.config import get_settings
@@ -14,6 +17,28 @@ from app.models.country import Country
 from app.models.image import Image
 from app.models.fact import Fact
 from app.utils.slug import slugify
+from animals_extra import EXTRA_COUNTRIES, EXTRA_ANIMALS
+
+
+def fetch_wikipedia_data(name: str, wiki_title: str | None = None) -> dict:
+    """Fetch image and summary from Wikipedia REST API."""
+    title = (wiki_title or name).replace(" ", "_")
+    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(title, safe='')}"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "WildAtlas/1.0 (animal-database)"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json_lib.loads(resp.read())
+        result = {}
+        if "originalimage" in data:
+            result["hero_image_url"] = data["originalimage"]["source"]
+        if "thumbnail" in data:
+            result["thumbnail_url"] = data["thumbnail"]["source"]
+        if "extract" in data and len(data["extract"]) > 50:
+            result["wiki_summary"] = data["extract"]
+        return result
+    except Exception as e:
+        print(f"  Wikipedia fetch failed for '{title}': {e}")
+        return {}
 
 settings = get_settings()
 
@@ -2365,6 +2390,103 @@ async def seed_database():
                     )
 
         await db.commit()
+
+    # ── Second pass: extra countries + extra animals with Wikipedia images ──
+    async with Session() as db:
+        from sqlalchemy import select
+
+        # Rebuild maps
+        continent_map = {}
+        result = await db.execute(select(Continent))
+        for c in result.scalars().all():
+            continent_map[c.code] = c
+
+        cs_map = {}
+        result = await db.execute(select(ConservationStatus))
+        for cs in result.scalars().all():
+            cs_map[cs.code] = cs
+
+        # Extra countries
+        for name, code, cont_code, capital, region, subregion, pop, flag_url in EXTRA_COUNTRIES:
+            existing = await db.execute(select(Country).where(Country.code == code))
+            if not existing.scalar_one_or_none():
+                continent = continent_map.get(cont_code)
+                db.add(Country(
+                    name=name, code=code,
+                    continent_id=continent.id if continent else None,
+                    capital=capital, region=region, subregion=subregion,
+                    population=pop, flag_url=flag_url,
+                ))
+        await db.flush()
+
+        country_map = {}
+        result = await db.execute(select(Country))
+        for c in result.scalars().all():
+            country_map[c.code] = c
+
+        # Extra animals with Wikipedia enrichment
+        total = len(EXTRA_ANIMALS)
+        for idx, data in enumerate(EXTRA_ANIMALS, 1):
+            slug = slugify(data["common_name"])
+            existing = await db.execute(select(Animal).where(Animal.slug == slug))
+            if existing.scalar_one_or_none():
+                print(f"  [{idx}/{total}] Skipping {data['common_name']} (exists)")
+                continue
+
+            print(f"  [{idx}/{total}] Seeding {data['common_name']}...")
+
+            # Fetch Wikipedia image + summary
+            wiki_data = fetch_wikipedia_data(data["common_name"], data.get("wiki_title"))
+            merged = {**data, **wiki_data}
+
+            cs = cs_map.get(merged.get("conservation_code"))
+            continent = continent_map.get(merged.get("continent_code"))
+
+            animal = Animal(
+                slug=slug,
+                common_name=merged["common_name"],
+                scientific_name=merged.get("scientific_name"),
+                class_name=merged.get("class_name"),
+                order_name=merged.get("order_name"),
+                family_name=merged.get("family_name"),
+                genus=merged.get("genus"),
+                diet=merged.get("diet"),
+                lifespan=merged.get("lifespan"),
+                average_weight=merged.get("average_weight"),
+                habitat_summary=merged.get("habitat_summary"),
+                description=merged.get("description"),
+                environment_type=merged.get("environment_type"),
+                biome=merged.get("biome"),
+                wiki_summary=merged.get("wiki_summary"),
+                hero_image_url=merged.get("hero_image_url"),
+                thumbnail_url=merged.get("thumbnail_url"),
+                popularity=merged.get("popularity", 40),
+                conservation_status_id=cs.id if cs else None,
+                continent_id=continent.id if continent else None,
+                kingdom="Animalia",
+            )
+            db.add(animal)
+            await db.flush()
+
+            if merged.get("hero_image_url"):
+                db.add(Image(animal_id=animal.id, url=merged["hero_image_url"], is_hero=True, source="wikipedia"))
+
+            for lat, lon in merged.get("occurrences", []):
+                db.add(Occurrence(animal_id=animal.id, latitude=lat, longitude=lon, source_name="seed"))
+
+            animal.observation_count = len(merged.get("occurrences", []))
+
+            for cc in merged.get("countries", []):
+                country_obj = country_map.get(cc)
+                if country_obj:
+                    await db.execute(
+                        animal_countries_table.insert().values(
+                            animal_id=animal.id, country_id=country_obj.id
+                        )
+                    )
+
+        await db.commit()
+
     await engine.dispose()
     print("Seed complete!")
 
