@@ -221,19 +221,19 @@ export default function QuizPage() {
   /* ──── Render ──── */
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16">
+      <div className="bg-forest-950 min-h-screen"><div className="max-w-4xl mx-auto px-4 py-16">
         <div className="animate-pulse space-y-6">
-          <div className="h-10 bg-gray-200 rounded w-48" />
-          <div className="grid grid-cols-2 gap-4">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-40 bg-gray-200 rounded-2xl" />)}</div>
+          <div className="h-10 bg-forest-800 rounded w-48" />
+          <div className="grid grid-cols-2 gap-4">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-40 bg-forest-800 rounded-2xl" />)}</div>
         </div>
-      </div>
+      </div></div>
     );
   }
 
   /* Mode selection */
   if (!mode) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="bg-forest-950 min-h-screen"><div className="max-w-4xl mx-auto px-4 py-8">
         {/* Hero */}
         <div className="bg-gradient-to-r from-forest-800 to-forest-900 text-white rounded-2xl p-8 mb-10">
           <h1 className="font-display text-4xl font-bold mb-2">Wildlife Quiz</h1>
@@ -246,27 +246,27 @@ export default function QuizPage() {
         </div>
 
         {/* Mode cards */}
-        <h2 className="font-display text-2xl font-bold text-gray-900 mb-4">Choose a Quiz Mode</h2>
+        <h2 className="font-display text-2xl font-bold text-white mb-4">Choose a Quiz Mode</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {(Object.entries(MODE_META) as [Mode, typeof MODE_META[Mode]][]).map(([key, meta]) => (
             <button
               key={key}
               onClick={() => startQuiz(key)}
-              className="group bg-white rounded-2xl border border-gray-200 p-6 text-left hover:border-forest-500 hover:shadow-lg transition-all"
+              className="group bg-forest-800/40 rounded-2xl border border-forest-700/40 p-6 text-left hover:border-emerald-500/40 transition-all"
             >
-              <div className="w-14 h-14 bg-forest-50 text-forest-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-forest-100 transition">
+              <div className="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center mb-4">
                 {meta.icon}
               </div>
-              <h3 className="font-display font-bold text-lg text-gray-900 mb-1">{meta.title}</h3>
-              <p className="text-sm text-gray-500">{meta.desc}</p>
-              <div className="mt-3 text-xs font-semibold text-forest-600 flex items-center gap-1">
+              <h3 className="font-display font-bold text-lg text-white mb-1">{meta.title}</h3>
+              <p className="text-sm text-forest-400">{meta.desc}</p>
+              <div className="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
                 {QUESTIONS_PER_ROUND} questions
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </div>
             </button>
           ))}
         </div>
-      </div>
+      </div></div>
     );
   }
 
@@ -275,41 +275,41 @@ export default function QuizPage() {
     const pct = Math.round((score / questions.length) * 100);
     const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👏' : '💪';
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
+      <div className="bg-forest-950 min-h-screen"><div className="max-w-2xl mx-auto px-4 py-16 text-center">
         <div className="text-6xl mb-4">{emoji}</div>
-        <h2 className="font-display text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
-        <p className="text-gray-500 mb-8">{MODE_META[mode].title}</p>
+        <h2 className="font-display text-3xl font-bold text-white mb-2">Quiz Complete!</h2>
+        <p className="text-forest-400 mb-8">{MODE_META[mode].title}</p>
 
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8">
+        <div className="bg-forest-800/40 border border-forest-700/40 rounded-2xl p-8 mb-8">
           <div className="grid grid-cols-3 gap-6 mb-6">
             <div>
-              <div className="text-4xl font-bold text-forest-700">{score}/{questions.length}</div>
-              <div className="text-sm text-gray-500">Score</div>
+              <div className="text-4xl font-bold text-emerald-400">{score}/{questions.length}</div>
+              <div className="text-sm text-forest-400">Score</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-forest-700">{pct}%</div>
-              <div className="text-sm text-gray-500">Accuracy</div>
+              <div className="text-4xl font-bold text-emerald-400">{pct}%</div>
+              <div className="text-sm text-forest-400">Accuracy</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-forest-700">{bestStreak}</div>
-              <div className="text-sm text-gray-500">Best Streak</div>
+              <div className="text-4xl font-bold text-emerald-400">{bestStreak}</div>
+              <div className="text-sm text-forest-400">Best Streak</div>
             </div>
           </div>
           {/* Progress bar */}
-          <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-3 bg-forest-700/50 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: pct >= 80 ? '#16a34a' : pct >= 50 ? '#ca8a04' : '#dc2626' }} />
           </div>
         </div>
 
         <div className="flex justify-center gap-3">
-          <button onClick={() => startQuiz(mode)} className="bg-forest-700 hover:bg-forest-800 text-white px-6 py-3 rounded-xl font-semibold transition">
+          <button onClick={() => startQuiz(mode)} className="bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 text-emerald-400 px-6 py-3 rounded-xl font-semibold transition">
             Play Again
           </button>
-          <button onClick={() => { setMode(null); setFinished(false); }} className="bg-white border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-3 rounded-xl font-semibold transition">
+          <button onClick={() => { setMode(null); setFinished(false); }} className="bg-forest-800/40 border border-forest-700/40 hover:border-forest-600/60 text-forest-300 px-6 py-3 rounded-xl font-semibold transition">
             Choose Mode
           </button>
         </div>
-      </div>
+      </div></div>
     );
   }
 
@@ -319,20 +319,20 @@ export default function QuizPage() {
   const progress = ((currentIdx) / questions.length) * 100;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-3xl mx-auto px-4 py-8">
       {/* Top bar */}
       <div className="flex items-center justify-between mb-6">
-        <button onClick={() => { setMode(null); setFinished(false); }} className="text-gray-500 hover:text-gray-700 text-sm font-medium flex items-center gap-1">
+        <button onClick={() => { setMode(null); setFinished(false); }} className="text-forest-400 hover:text-forest-200 text-sm font-medium flex items-center gap-1">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           Exit
         </button>
-        <div className="text-sm font-semibold text-gray-700">
+        <div className="text-sm font-semibold text-forest-300">
           {MODE_META[mode].title}
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <span className="text-forest-700 font-bold">{score} pts</span>
+          <span className="text-emerald-400 font-bold">{score} pts</span>
           {streak > 1 && (
-            <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-xs font-bold animate-bounce">
+            <span className="bg-amber-900/30 text-amber-400 px-2 py-0.5 rounded-full text-xs font-bold animate-bounce">
               🔥 {streak} streak
             </span>
           )}
@@ -340,20 +340,20 @@ export default function QuizPage() {
       </div>
 
       {/* Progress bar */}
-      <div className="h-2 bg-gray-100 rounded-full mb-8 overflow-hidden">
-        <div className="h-full bg-forest-600 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+      <div className="h-2 bg-forest-800 rounded-full mb-8 overflow-hidden">
+        <div className="h-full bg-emerald-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
       </div>
 
       {/* Question card */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+      <div className="bg-forest-800/40 rounded-2xl border border-forest-700/40 overflow-hidden">
         {/* Behaviour description area */}
         {q.description && (
-          <div className="bg-forest-50 border-b border-forest-100 px-6 py-5">
+          <div className="bg-forest-700/30 border-b border-forest-700/40 px-6 py-5">
             <div className="flex items-start gap-3">
-              <div className="mt-0.5 w-8 h-8 rounded-full bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0">
+              <div className="mt-0.5 w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center flex-shrink-0">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" /></svg>
               </div>
-              <p className="text-sm text-forest-800 leading-relaxed italic">"{q.description}"</p>
+              <p className="text-sm text-forest-200 leading-relaxed italic">"{q.description}"</p>
             </div>
           </div>
         )}
@@ -371,21 +371,21 @@ export default function QuizPage() {
 
         <div className="p-6">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-forest-600 uppercase tracking-wide">Question {currentIdx + 1} of {questions.length}</span>
+            <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide">Question {currentIdx + 1} of {questions.length}</span>
           </div>
-          <h3 className="font-display text-xl font-bold text-gray-900 mb-5">{q.prompt}</h3>
+          <h3 className="font-display text-xl font-bold text-white mb-5">{q.prompt}</h3>
 
           {/* Options */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {q.options.map((opt, i) => {
-              let btnClass = 'border border-gray-200 bg-white hover:border-forest-400 hover:bg-forest-50 text-gray-800';
+              let btnClass = 'border border-forest-700/40 bg-forest-800/40 hover:border-emerald-500/40 text-forest-200';
               if (selected) {
                 if (opt === q.correct) {
-                  btnClass = 'border-2 border-green-500 bg-green-50 text-green-800';
+                  btnClass = 'border-2 border-green-500 bg-green-900/30 text-green-300';
                 } else if (opt === selected && opt !== q.correct) {
-                  btnClass = 'border-2 border-red-400 bg-red-50 text-red-800';
+                  btnClass = 'border-2 border-red-500 bg-red-900/30 text-red-300';
                 } else {
-                  btnClass = 'border border-gray-100 bg-gray-50 text-gray-400';
+                  btnClass = 'border border-forest-700/20 bg-forest-800/20 text-forest-500';
                 }
               }
               return (
@@ -395,7 +395,7 @@ export default function QuizPage() {
                   disabled={!!selected}
                   className={`px-4 py-3 rounded-xl text-left font-medium text-sm transition-all ${btnClass}`}
                 >
-                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold mr-2">
+                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-forest-700/50 text-forest-400 text-xs font-bold mr-2">
                     {String.fromCharCode(65 + i)}
                   </span>
                   {opt}
@@ -409,12 +409,12 @@ export default function QuizPage() {
           {/* Next / result feedback */}
           {selected && (
             <div className="mt-5 flex items-center justify-between">
-              <div className={`text-sm font-semibold ${selected === q.correct ? 'text-green-700' : 'text-red-600'}`}>
+              <div className={`text-sm font-semibold ${selected === q.correct ? 'text-green-400' : 'text-red-400'}`}>
                 {selected === q.correct ? 'Correct!' : `Wrong — the answer is ${q.correct}`}
               </div>
               <button
                 onClick={nextQuestion}
-                className="bg-forest-700 hover:bg-forest-800 text-white px-5 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-1"
+                className="bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 text-emerald-400 px-5 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-1"
               >
                 {currentIdx + 1 >= questions.length ? 'See Results' : 'Next'}
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -423,6 +423,6 @@ export default function QuizPage() {
           )}
         </div>
       </div>
-    </div>
+    </div></div>
   );
 }

@@ -26,19 +26,19 @@ export default function MapPage() {
     : hotspots;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="font-display text-3xl font-bold text-gray-900 mb-2">Wildlife Map</h1>
-        <p className="text-gray-500">Explore species around the world, colour-coded by conservation status</p>
+        <h1 className="font-display text-3xl font-bold text-white mb-2">Wildlife Map</h1>
+        <p className="text-forest-400">Explore species around the world, colour-coded by conservation status</p>
       </div>
 
       {/* Conservation Status Legend / Filter */}
       <div className="flex flex-wrap items-center gap-2 mb-4 text-sm">
-        <span className="text-gray-500 font-medium mr-1">Filter by status:</span>
+        <span className="text-forest-400 font-medium mr-1">Filter by status:</span>
         <button
           onClick={() => setStatusFilter(null)}
           className={`px-3 py-1 rounded-full text-xs font-semibold border transition ${
-            !statusFilter ? 'bg-forest-700 text-white border-forest-700' : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'
+            !statusFilter ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : 'bg-forest-800/40 text-forest-300 border-forest-700/40 hover:border-forest-600/60'
           }`}
         >
           All ({hotspots.length})
@@ -53,7 +53,7 @@ export default function MapPage() {
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition ${
                 statusFilter === l.code
                   ? 'text-white border-transparent'
-                  : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'
+                  : 'bg-forest-800/40 text-forest-300 border-forest-700/40 hover:border-forest-600/60'
               }`}
               style={statusFilter === l.code ? { background: l.color, borderColor: l.color } : {}}
             >
@@ -65,14 +65,14 @@ export default function MapPage() {
       </div>
 
       {loading ? (
-        <div className="h-[600px] bg-gray-100 rounded-xl animate-pulse" />
+        <div className="h-[600px] bg-forest-800 rounded-xl animate-pulse" />
       ) : (
         <MapView hotspots={filtered} className="h-[600px]" />
       )}
 
-      <p className="text-xs text-gray-400 mt-3 text-center">
+      <p className="text-xs text-forest-500 mt-3 text-center">
         Each dot represents a recorded location. Colour indicates IUCN conservation status. Click for details.
       </p>
-    </div>
+    </div></div>
   );
 }

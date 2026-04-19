@@ -108,19 +108,19 @@ export default function BiomesPage() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-16">
         <div className="animate-pulse space-y-5">
-          <div className="h-10 bg-gray-200 rounded w-64" />
+          <div className="h-10 bg-forest-800 rounded w-64" />
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-44 bg-gray-200 rounded-2xl" />
+            <div key={i} className="h-44 bg-forest-800 rounded-2xl" />
           ))}
         </div>
-      </div>
+      </div></div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero */}
       <div className="bg-gradient-to-r from-forest-800 to-forest-900 text-white rounded-2xl p-8 mb-10">
         <h1 className="font-display text-4xl font-bold mb-2">Explore Biomes</h1>
@@ -196,7 +196,7 @@ export default function BiomesPage() {
           <div>
             <button
               onClick={() => setSelectedBiome(null)}
-              className="mb-6 flex items-center gap-2 text-forest-700 hover:text-forest-900 font-medium transition"
+              className="mb-6 flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-medium transition"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               Back to all biomes
@@ -222,7 +222,7 @@ export default function BiomesPage() {
             {/* Featured cards */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
               {featured.map(animal => (
-                <Link key={animal.slug} to={`/animal/${animal.slug}`} className="group relative rounded-xl overflow-hidden bg-gray-100 aspect-[3/4] block">
+                <Link key={animal.slug} to={`/animal/${animal.slug}`} className="group relative rounded-xl overflow-hidden bg-forest-800 aspect-[3/4] block">
                   <img src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)} alt={animal.common_name} className="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" onError={e => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -235,19 +235,19 @@ export default function BiomesPage() {
 
             {/* Remaining animals list */}
             {rest.length > 0 && (
-              <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+              <div className="bg-forest-800/40 rounded-xl border border-forest-700/40 divide-y divide-forest-700/30">
                 {rest.map(animal => (
-                  <Link key={animal.slug} to={`/animal/${animal.slug}`} className="flex items-center gap-4 px-5 py-3 hover:bg-gray-50 transition">
+                  <Link key={animal.slug} to={`/animal/${animal.slug}`} className="flex items-center gap-4 px-5 py-3 hover:bg-forest-700/30 transition">
                     <img src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)} alt={animal.common_name} className="w-10 h-10 rounded-lg object-cover flex-shrink-0" onError={e => { (e.target as HTMLImageElement).src = placeholderImage(animal.common_name); }} />
                     <div className="min-w-0 flex-1">
-                      <span className="font-medium text-gray-900">{animal.common_name}</span>
-                      <span className="text-gray-400 mx-2">—</span>
-                      <span className="text-gray-500 text-sm italic">{animal.scientific_name}</span>
+                      <span className="font-medium text-white">{animal.common_name}</span>
+                      <span className="text-forest-500 mx-2">—</span>
+                      <span className="text-forest-400 text-sm italic">{animal.scientific_name}</span>
                     </div>
                     {animal.conservation_status && (
                       <span className={`status-badge text-[10px] flex-shrink-0 ${statusColor(animal.conservation_status.code)}`}>{animal.conservation_status.code}</span>
                     )}
-                    <svg className="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                    <svg className="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                   </Link>
                 ))}
               </div>
@@ -255,6 +255,6 @@ export default function BiomesPage() {
           </div>
         );
       })()}
-    </div>
+    </div></div>
   );
 }

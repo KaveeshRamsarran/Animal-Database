@@ -18,8 +18,8 @@ const SORT_OPTIONS = [
 function FilterSelect({ label, value, options, onChange }: { label: string; value: string; options: string[] | { value: string; label: string }[]; onChange: (v: string) => void }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-500 mb-1">{label}</label>
-      <select value={value} onChange={e => onChange(e.target.value)} className="w-full border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-forest-400">
+      <label className="block text-xs font-medium text-forest-400 mb-1">{label}</label>
+      <select value={value} onChange={e => onChange(e.target.value)} className="w-full bg-forest-900/50 border border-forest-700/40 text-forest-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50">
         <option value="">All</option>
         {options.map(o => typeof o === 'string' ? <option key={o} value={o}>{o}</option> : <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
@@ -29,8 +29,8 @@ function FilterSelect({ label, value, options, onChange }: { label: string; valu
 
 export default function FilterSidebar({ filters, onChange }: Props) {
   return (
-    <aside className="space-y-4 bg-white p-4 rounded-xl shadow-sm">
-      <h3 className="font-semibold text-gray-700">Filters</h3>
+    <aside className="space-y-4 bg-forest-800/40 border border-forest-700/40 p-4 rounded-xl">
+      <h3 className="font-semibold text-white">Filters</h3>
       <FilterSelect label="Class" value={filters.class_name || ''} options={CLASS_OPTIONS} onChange={v => onChange('class_name', v)} />
       <FilterSelect label="Diet" value={filters.diet || ''} options={DIET_OPTIONS} onChange={v => onChange('diet', v)} />
       <FilterSelect label="Environment" value={filters.environment_type || ''} options={ENV_OPTIONS} onChange={v => onChange('environment_type', v)} />

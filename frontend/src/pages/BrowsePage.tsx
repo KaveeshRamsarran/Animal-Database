@@ -59,21 +59,21 @@ export default function BrowsePage() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-16">
         <div className="animate-pulse space-y-8">
-          <div className="h-10 bg-gray-200 rounded w-64" />
+          <div className="h-10 bg-forest-800 rounded w-64" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-48 bg-gray-200 rounded-xl" />
+              <div key={i} className="h-48 bg-forest-800 rounded-xl" />
             ))}
           </div>
         </div>
-      </div>
+      </div></div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Stats Banner */}
       <div className="bg-gradient-to-r from-forest-800 to-forest-900 text-white rounded-2xl p-8 mb-10">
         <h1 className="font-display text-4xl font-bold mb-2">
@@ -126,8 +126,8 @@ export default function BrowsePage() {
                 {letter}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">{items.length} Animal{items.length !== 1 ? 's' : ''}</h2>
-                <p className="text-sm text-gray-500">Starting with the letter {letter}</p>
+                <h2 className="text-xl font-bold text-white">{items.length} Animal{items.length !== 1 ? 's' : ''}</h2>
+                <p className="text-sm text-forest-400">Starting with the letter {letter}</p>
               </div>
             </div>
 
@@ -137,7 +137,7 @@ export default function BrowsePage() {
                 <Link
                   key={animal.id}
                   to={`/animal/${animal.slug}`}
-                  className="group relative rounded-xl overflow-hidden bg-gray-100 aspect-[4/3] block"
+                  className="group relative rounded-xl overflow-hidden bg-forest-800 aspect-[4/3] block"
                 >
                   <img
                     src={proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name)}
@@ -172,7 +172,7 @@ export default function BrowsePage() {
                   <Link
                     key={animal.id}
                     to={`/animal/${animal.slug}`}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-forest-50 text-sm text-gray-700 hover:text-forest-700 transition group"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-forest-700/30 text-sm text-forest-300 hover:text-emerald-400 transition group"
                   >
                     <svg className="w-3 h-3 text-forest-500 opacity-0 group-hover:opacity-100 transition" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
                     <span className="truncate">{animal.common_name}</span>
@@ -183,6 +183,6 @@ export default function BrowsePage() {
           </section>
         );
       })}
-    </div>
+    </div></div>
   );
 }

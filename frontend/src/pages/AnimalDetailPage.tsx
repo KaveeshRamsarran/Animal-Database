@@ -10,9 +10,9 @@ import type { AnimalDetail, HotspotOut } from '../types';
 function InfoRow({ label, value }: { label: string; value?: string | null }) {
   if (!value) return null;
   return (
-    <div className="flex justify-between py-2 border-b border-gray-100 last:border-0">
-      <span className="text-sm text-gray-500 font-medium">{label}</span>
-      <span className="text-sm text-gray-900 text-right max-w-[60%]">{value}</span>
+    <div className="flex justify-between py-2 border-b border-forest-700/30 last:border-0">
+      <span className="text-sm text-forest-400 font-medium">{label}</span>
+      <span className="text-sm text-forest-200 text-right max-w-[60%]">{value}</span>
     </div>
   );
 }
@@ -21,8 +21,8 @@ function TaxonomyRow({ rank, value }: { rank: string; value?: string | null }) {
   if (!value) return null;
   return (
     <div className="flex items-center gap-3 py-1.5">
-      <span className="text-xs text-gray-400 uppercase tracking-wider w-20 flex-shrink-0">{rank}</span>
-      <span className="text-sm text-gray-800 font-medium">{value}</span>
+      <span className="text-xs text-forest-500 uppercase tracking-wider w-20 flex-shrink-0">{rank}</span>
+      <span className="text-sm text-forest-200 font-medium">{value}</span>
     </div>
   );
 }
@@ -46,21 +46,21 @@ export default function AnimalDetailPage() {
   }, [slug]);
 
   if (loading) return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-16">
       <div className="animate-pulse space-y-6">
-        <div className="h-8 bg-gray-200 rounded w-48" />
-        <div className="h-96 bg-gray-200 rounded-xl" />
-        <div className="h-6 bg-gray-200 rounded w-full" />
-        <div className="h-6 bg-gray-200 rounded w-3/4" />
+        <div className="h-8 bg-forest-800 rounded w-48" />
+        <div className="h-96 bg-forest-800 rounded-xl" />
+        <div className="h-6 bg-forest-800 rounded w-full" />
+        <div className="h-6 bg-forest-800 rounded w-3/4" />
       </div>
-    </div>
+    </div></div>
   );
 
   if (!animal) return (
-    <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-      <h2 className="text-2xl font-bold text-gray-600">Animal not found</h2>
-      <Link to="/browse" className="text-forest-600 hover:underline mt-4 inline-block">Browse animals</Link>
-    </div>
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-16 text-center">
+      <h2 className="text-2xl font-bold text-forest-300">Animal not found</h2>
+      <Link to="/browse" className="text-emerald-400 hover:underline mt-4 inline-block">Browse animals</Link>
+    </div></div>
   );
 
   const heroFallback = proxyImage(animal.hero_image_url) || proxyImage(animal.thumbnail_url) || placeholderImage(animal.common_name);
@@ -73,25 +73,25 @@ export default function AnimalDetailPage() {
   const allFacts = [...dbFacts, ...funFactsList.filter(f => !dbFacts.some(d => d.includes(f.slice(0, 20))))];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
       {/* Breadcrumb */}
-      <div className="mb-6 text-sm text-gray-500 flex items-center gap-1">
-        <Link to="/" className="hover:text-forest-600">Home</Link>
+      <div className="mb-6 text-sm text-forest-400 flex items-center gap-1">
+        <Link to="/" className="hover:text-emerald-400">Home</Link>
         <span>/</span>
-        <Link to="/browse" className="hover:text-forest-600">Animals</Link>
+        <Link to="/browse" className="hover:text-emerald-400">Animals</Link>
         <span>/</span>
-        <span className="text-gray-900 font-medium">{animal.common_name}</span>
+        <span className="text-forest-200 font-medium">{animal.common_name}</span>
       </div>
 
       {/* Hero Section */}
-      <div className="bg-white rounded-2xl shadow-sm border overflow-hidden mb-8">
+      <div className="bg-forest-800/40 border border-forest-700/40 rounded-2xl overflow-hidden mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Image Gallery */}
-          <div className="relative aspect-[4/3] lg:aspect-auto bg-gray-100">
+          <div className="relative aspect-[4/3] lg:aspect-auto bg-forest-800 flex items-center justify-center">
             <img
               src={images[imgIdx].url}
               alt={animal.common_name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
                 if (img.src !== heroFallback && heroFallback !== img.src) {
@@ -115,9 +115,9 @@ export default function AnimalDetailPage() {
           <div className="p-8">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <h1 className="font-display text-4xl font-bold text-gray-900 mb-1">{animal.common_name}</h1>
-                <p className="text-xl text-gray-500 italic">{animal.scientific_name}</p>
-                {animal.alternate_names && <p className="text-sm text-gray-400 mt-2">Also known as: {animal.alternate_names}</p>}
+                <h1 className="font-display text-4xl font-bold text-white mb-1">{animal.common_name}</h1>
+                <p className="text-xl text-forest-400 italic">{animal.scientific_name}</p>
+                {animal.alternate_names && <p className="text-sm text-forest-500 mt-2">Also known as: {animal.alternate_names}</p>}
               </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function AnimalDetailPage() {
             )}
 
             {animal.description && (
-              <p className="text-gray-700 leading-relaxed mb-6">{animal.description}</p>
+              <p className="text-forest-300 leading-relaxed mb-6">{animal.description}</p>
             )}
 
             {/* At a Glance */}
@@ -144,12 +144,12 @@ export default function AnimalDetailPage() {
                 { icon: '🌙', label: 'Activity', value: animal.activity_period },
                 { icon: '👥', label: 'Social', value: animal.social_structure },
               ].filter(f => f.value).map(f => (
-                <div key={f.label} className="bg-gray-50 rounded-lg px-3 py-2">
+                <div key={f.label} className="bg-forest-700/30 rounded-lg px-3 py-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm">{f.icon}</span>
-                    <span className="text-xs text-gray-500">{f.label}</span>
+                    <span className="text-xs text-forest-400">{f.label}</span>
                   </div>
-                  <div className="text-sm font-semibold text-gray-900 mt-0.5">{f.value}</div>
+                  <div className="text-sm font-semibold text-forest-200 mt-0.5">{f.value}</div>
                 </div>
               ))}
             </div>
@@ -165,7 +165,7 @@ export default function AnimalDetailPage() {
           {animal.wiki_summary && (
             <section className="info-card">
               <h2 className="section-heading">Overview</h2>
-              <p className="text-gray-700 leading-relaxed">{animal.wiki_summary}</p>
+              <p className="text-forest-300 leading-relaxed">{animal.wiki_summary}</p>
             </section>
           )}
 
@@ -175,28 +175,28 @@ export default function AnimalDetailPage() {
               <h2 className="section-heading">Habitat & Ecology</h2>
               {animal.habitat_summary && (
                 <div className="mb-4">
-                  <h3 className="font-semibold text-gray-800 mb-2">Habitat</h3>
-                  <p className="text-gray-700 leading-relaxed">{animal.habitat_summary}</p>
+                  <h3 className="font-semibold text-forest-200 mb-2">Habitat</h3>
+                  <p className="text-forest-300 leading-relaxed">{animal.habitat_summary}</p>
                 </div>
               )}
               <div className="grid grid-cols-2 gap-4">
                 {animal.biome && (
-                  <div className="bg-green-50 rounded-lg p-3">
-                    <span className="text-xs text-green-600 uppercase font-medium">Biome</span>
-                    <p className="text-sm font-semibold text-green-900 mt-1">{animal.biome}</p>
+                  <div className="bg-emerald-500/10 rounded-lg p-3">
+                    <span className="text-xs text-emerald-400 uppercase font-medium">Biome</span>
+                    <p className="text-sm font-semibold text-emerald-300 mt-1">{animal.biome}</p>
                   </div>
                 )}
                 {animal.environment_type && (
-                  <div className="bg-blue-50 rounded-lg p-3">
-                    <span className="text-xs text-blue-600 uppercase font-medium">Environment</span>
-                    <p className="text-sm font-semibold text-blue-900 mt-1 capitalize">{animal.environment_type}</p>
+                  <div className="bg-ocean-500/10 rounded-lg p-3">
+                    <span className="text-xs text-ocean-400 uppercase font-medium">Environment</span>
+                    <p className="text-sm font-semibold text-ocean-300 mt-1 capitalize">{animal.environment_type}</p>
                   </div>
                 )}
               </div>
               {animal.ecological_role && (
                 <div className="mt-4">
-                  <h3 className="font-semibold text-gray-800 mb-2">Ecological Role</h3>
-                  <p className="text-gray-700 leading-relaxed">{animal.ecological_role}</p>
+                  <h3 className="font-semibold text-forest-200 mb-2">Ecological Role</h3>
+                  <p className="text-forest-300 leading-relaxed">{animal.ecological_role}</p>
                 </div>
               )}
             </section>
@@ -207,24 +207,24 @@ export default function AnimalDetailPage() {
             <section className="info-card">
               <h2 className="section-heading">Behavior & Ecology</h2>
               {animal.behavior_summary && (
-                <p className="text-gray-700 leading-relaxed mb-4">{animal.behavior_summary}</p>
+                <p className="text-forest-300 leading-relaxed mb-4">{animal.behavior_summary}</p>
               )}
               {animal.communication && (
                 <div className="mb-4">
-                  <h3 className="font-semibold text-gray-800 mb-2">Communication</h3>
-                  <p className="text-gray-700 leading-relaxed">{animal.communication}</p>
+                  <h3 className="font-semibold text-forest-200 mb-2">Communication</h3>
+                  <p className="text-forest-300 leading-relaxed">{animal.communication}</p>
                 </div>
               )}
               {animal.migration_behavior && (
                 <div className="mb-4">
-                  <h3 className="font-semibold text-gray-800 mb-2">Migration</h3>
-                  <p className="text-gray-700 leading-relaxed">{animal.migration_behavior}</p>
+                  <h3 className="font-semibold text-forest-200 mb-2">Migration</h3>
+                  <p className="text-forest-300 leading-relaxed">{animal.migration_behavior}</p>
                 </div>
               )}
               {animal.behaviors.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-3">
                   {animal.behaviors.map((b, i) => (
-                    <span key={i} className="bg-forest-50 text-forest-700 px-3 py-1.5 rounded-full text-sm font-medium">{b.label}</span>
+                    <span key={i} className="bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full text-sm font-medium">{b.label}</span>
                   ))}
                 </div>
               )}
@@ -238,24 +238,24 @@ export default function AnimalDetailPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {(animal.diet || animal.prey) && (
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                    <h3 className="font-semibold text-forest-200 mb-2 flex items-center gap-2">
                       <span className="text-lg">🍖</span> Diet
                     </h3>
-                    {animal.diet_detail && <p className="text-gray-700 text-sm mb-2">{animal.diet_detail}</p>}
+                    {animal.diet_detail && <p className="text-forest-300 text-sm mb-2">{animal.diet_detail}</p>}
                     {animal.prey && (
                       <div>
-                        <span className="text-xs text-gray-500 uppercase">Prey / Food</span>
-                        <p className="text-sm text-gray-800 mt-1">{animal.prey}</p>
+                        <span className="text-xs text-forest-500 uppercase">Prey / Food</span>
+                        <p className="text-sm text-forest-200 mt-1">{animal.prey}</p>
                       </div>
                     )}
                   </div>
                 )}
                 {animal.predators && (
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                    <h3 className="font-semibold text-forest-200 mb-2 flex items-center gap-2">
                       <span className="text-lg">⚠️</span> Predators
                     </h3>
-                    <p className="text-sm text-gray-800">{animal.predators}</p>
+                    <p className="text-sm text-forest-200">{animal.predators}</p>
                   </div>
                 )}
               </div>
@@ -266,21 +266,21 @@ export default function AnimalDetailPage() {
           {animal.reproduction && (
             <section className="info-card">
               <h2 className="section-heading">Reproduction & Life Cycle</h2>
-              <p className="text-gray-700 leading-relaxed">{animal.reproduction}</p>
+              <p className="text-forest-300 leading-relaxed">{animal.reproduction}</p>
             </section>
           )}
 
           {/* Fun Facts / Did You Know */}
           {allFacts.length > 0 && (
-            <section className="info-card bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
-              <h2 className="font-display text-2xl font-bold text-amber-900 mb-4 pb-2 border-b border-amber-200">
+            <section className="info-card bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-700/40">
+              <h2 className="font-display text-2xl font-bold text-amber-300 mb-4 pb-2 border-b border-amber-700/40">
                 💡 Did You Know?
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {allFacts.map((fact, i) => (
-                  <div key={i} className="flex gap-3 bg-white/60 rounded-lg p-3">
-                    <span className="text-amber-500 font-bold text-lg flex-shrink-0">#{i + 1}</span>
-                    <p className="text-sm text-gray-800">{fact}</p>
+                  <div key={i} className="flex gap-3 bg-amber-900/20 rounded-lg p-3">
+                    <span className="text-amber-400 font-bold text-lg flex-shrink-0">#{i + 1}</span>
+                    <p className="text-sm text-forest-200">{fact}</p>
                   </div>
                 ))}
               </div>
@@ -291,7 +291,7 @@ export default function AnimalDetailPage() {
           {mapPoints.length > 0 && (
             <section className="info-card">
               <h2 className="section-heading">Distribution Map</h2>
-              <p className="text-sm text-gray-500 mb-4">Showing observed locations of {animal.common_name} across the globe</p>
+              <p className="text-sm text-forest-400 mb-4">Showing observed locations of {animal.common_name} across the globe</p>
               <MapView hotspots={mapPoints} className="h-96" />
             </section>
           )}
@@ -301,7 +301,7 @@ export default function AnimalDetailPage() {
         <div className="space-y-6">
           {/* Taxonomy */}
           <div className="info-card">
-            <h3 className="font-display font-bold text-lg text-gray-900 mb-4 pb-2 border-b border-gray-200">
+            <h3 className="font-display font-bold text-lg text-white mb-4 pb-2 border-b border-forest-700/40">
               Scientific Classification
             </h3>
             <div className="space-y-0.5">
@@ -317,7 +317,7 @@ export default function AnimalDetailPage() {
 
           {/* Quick Info */}
           <div className="info-card">
-            <h3 className="font-display font-bold text-lg text-gray-900 mb-3 pb-2 border-b border-gray-200">Quick Info</h3>
+            <h3 className="font-display font-bold text-lg text-white mb-3 pb-2 border-b border-forest-700/40">Quick Info</h3>
             <InfoRow label="Diet" value={animal.diet} />
             <InfoRow label="Lifespan" value={animal.lifespan} />
             <InfoRow label="Weight" value={animal.average_weight} />
@@ -331,12 +331,12 @@ export default function AnimalDetailPage() {
           {/* Countries */}
           {animal.countries.length > 0 && (
             <div className="info-card">
-              <h3 className="font-display font-bold text-lg text-gray-900 mb-3 pb-2 border-b border-gray-200">
+              <h3 className="font-display font-bold text-lg text-white mb-3 pb-2 border-b border-forest-700/40">
                 Found In ({animal.countries.length} countries)
               </h3>
               <div className="flex flex-wrap gap-1.5">
                 {animal.countries.map(c => (
-                  <Link key={c.id} to={`/country/${c.code}`} className="bg-gray-100 hover:bg-forest-100 hover:text-forest-700 text-sm px-2.5 py-1 rounded-md transition">{c.name}</Link>
+                  <Link key={c.id} to={`/country/${c.code}`} className="bg-forest-700/50 hover:bg-emerald-500/20 hover:text-emerald-400 text-sm text-forest-300 px-2.5 py-1 rounded-md transition">{c.name}</Link>
                 ))}
               </div>
             </div>
@@ -344,11 +344,11 @@ export default function AnimalDetailPage() {
 
           {/* Continent */}
           {animal.continent && (
-            <div className="info-card bg-gradient-to-br from-ocean-50 to-ocean-100 border-ocean-200">
-              <h3 className="font-semibold text-ocean-900 mb-1">Continent</h3>
-              <p className="text-ocean-800 font-medium">{animal.continent.name}</p>
+            <div className="info-card bg-gradient-to-br from-ocean-900/30 to-ocean-800/30 border-ocean-700/40">
+              <h3 className="font-semibold text-ocean-300 mb-1">Continent</h3>
+              <p className="text-ocean-200 font-medium">{animal.continent.name}</p>
               {animal.continent.description && (
-                <p className="text-xs text-ocean-700 mt-1">{animal.continent.description}</p>
+                <p className="text-xs text-ocean-400 mt-1">{animal.continent.description}</p>
               )}
             </div>
           )}
@@ -356,17 +356,17 @@ export default function AnimalDetailPage() {
           {/* Conservation */}
           {animal.conservation_status && (
             <div className="info-card">
-              <h3 className="font-display font-bold text-lg text-gray-900 mb-3 pb-2 border-b border-gray-200">
+              <h3 className="font-display font-bold text-lg text-white mb-3 pb-2 border-b border-forest-700/40">
                 Conservation Status
               </h3>
               <div className="flex items-center gap-3 mb-3">
                 <span className={`status-badge text-sm ${statusColor(animal.conservation_status.code)}`}>
                   {animal.conservation_status.code}
                 </span>
-                <span className="font-semibold text-gray-900">{animal.conservation_status.name}</span>
+                <span className="font-semibold text-forest-200">{animal.conservation_status.name}</span>
               </div>
               {animal.conservation_status.description && (
-                <p className="text-sm text-gray-600">{animal.conservation_status.description}</p>
+                <p className="text-sm text-forest-400">{animal.conservation_status.description}</p>
               )}
               {/* IUCN Scale */}
               <div className="mt-4">
@@ -376,7 +376,7 @@ export default function AnimalDetailPage() {
                       key={code}
                       className={`flex-1 h-2 rounded-sm ${
                         code === animal.conservation_status!.code
-                          ? 'ring-2 ring-offset-1 ring-gray-400'
+                          ? 'ring-2 ring-offset-1 ring-forest-400 ring-offset-forest-800'
                           : ''
                       } ${
                         code === 'LC' ? 'bg-green-400' :
@@ -391,14 +391,14 @@ export default function AnimalDetailPage() {
                   ))}
                 </div>
                 <div className="flex justify-between mt-1">
-                  <span className="text-[10px] text-gray-400">Least Concern</span>
-                  <span className="text-[10px] text-gray-400">Extinct</span>
+                  <span className="text-[10px] text-forest-500">Least Concern</span>
+                  <span className="text-[10px] text-forest-500">Extinct</span>
                 </div>
               </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </div></div>
   );
 }

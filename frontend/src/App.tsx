@@ -17,6 +17,9 @@ import FavoritesPage from './pages/FavoritesPage';
 import AdminPage from './pages/AdminPage';
 import BiomesPage from './pages/BiomesPage';
 import QuizPage from './pages/QuizPage';
+import LocationPage from './pages/LocationPage';
+import ClassificationPage from './pages/ClassificationPage';
+import ConservationPage from './pages/ConservationPage';
 
 export default function App() {
   const { loadUser, token } = useAuthStore();
@@ -34,6 +37,9 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/browse" element={<BrowsePage />} />
             <Route path="/biomes" element={<BiomesPage />} />
+            <Route path="/location" element={<LocationPage />} />
+            <Route path="/classification" element={<ClassificationPage />} />
+            <Route path="/conservation" element={<ConservationPage />} />
             <Route path="/animal/:slug" element={<AnimalDetailPage />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/compare" element={<ComparePage />} />
