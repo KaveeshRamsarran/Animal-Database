@@ -22,7 +22,7 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-forest-950 min-h-screen"><div className="w-full px-6 lg:px-12 py-8">
       <h1 className="font-display text-3xl font-bold text-white mb-6">Explore by Region</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">

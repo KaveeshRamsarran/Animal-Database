@@ -25,7 +25,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50">
       {/* Main nav bar - dark theme */}
       <nav className="bg-forest-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 lg:px-12 sm:px-6 lg:px-8">
           <div className="flex justify-between h-14 items-center">
             <Link to="/" className="flex items-center gap-2">
               <img src="/favicon.svg" alt="WildAtlas" className="w-7 h-7" />
@@ -59,6 +59,14 @@ export default function Navbar() {
                     <Link to="/conservation" onClick={() => setAnimalsDrop(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-forest-200 hover:text-white hover:bg-forest-700/50 transition">
                       <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z" /></svg>
                       Conservation
+                    </Link>
+                    <Link to="/extinct" onClick={() => setAnimalsDrop(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-forest-200 hover:text-white hover:bg-forest-700/50 transition">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path d="M12 8v4l3 3" /><circle cx="12" cy="12" r="10" /></svg>
+                      Extinct Animals
+                    </Link>
+                    <Link to="/deep-sea" onClick={() => setAnimalsDrop(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-forest-200 hover:text-white hover:bg-forest-700/50 transition">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" /><circle cx="12" cy="12" r="3" /></svg>
+                      Deep Sea
                     </Link>
                     <div className="my-1 border-t border-forest-700/50" />
                     <Link to="/biomes" onClick={() => setAnimalsDrop(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-forest-200 hover:text-white hover:bg-forest-700/50 transition">
@@ -110,6 +118,8 @@ export default function Navbar() {
               <Link to="/location" className="block py-2 text-forest-200 hover:text-white">By Location</Link>
               <Link to="/classification" className="block py-2 text-forest-200 hover:text-white">By Class</Link>
               <Link to="/conservation" className="block py-2 text-forest-200 hover:text-white">Conservation</Link>
+              <Link to="/extinct" className="block py-2 text-forest-200 hover:text-white">Extinct Animals</Link>
+              <Link to="/deep-sea" className="block py-2 text-forest-200 hover:text-white">Deep Sea</Link>
               <Link to="/biomes" className="block py-2 text-forest-200 hover:text-white">Biomes</Link>
               <Link to="/map" className="block py-2 text-forest-200 hover:text-white">Map</Link>
               <Link to="/explore" className="block py-2 text-forest-200 hover:text-white">Explore</Link>
@@ -131,7 +141,7 @@ export default function Navbar() {
       {/* A-Z Letter Bar */}
       {isBrowse && (
         <div className="bg-forest-800 border-t border-forest-700">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="w-full px-6 lg:px-12">
             <div className="flex items-center justify-center gap-0.5 py-1.5 overflow-x-auto scrollbar-hide">
               {LETTERS.map(letter => (
                 <a

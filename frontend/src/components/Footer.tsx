@@ -21,7 +21,7 @@ export default function Footer() {
     <footer className="bg-forest-900 text-forest-200 mt-16">
       {/* A-Z Quick Links */}
       <div className="border-b border-forest-800">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="w-full px-6 lg:px-12 py-4">
           <p className="text-xs text-forest-400 uppercase tracking-wider mb-2">Browse Animals A-Z</p>
           <div className="flex flex-wrap gap-1">
             {LETTERS.map(l => (
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="w-full px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-3">
             <img src="/favicon.svg" alt="" className="w-6 h-6" />

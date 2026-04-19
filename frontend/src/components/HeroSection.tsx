@@ -13,7 +13,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-forest-950/80 via-forest-950/70 to-forest-950" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 relative">
+      <div className="w-full px-6 lg:px-12 py-20 md:py-28 relative">
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
             <img src="/favicon.svg" alt="" className="w-5 h-5" />

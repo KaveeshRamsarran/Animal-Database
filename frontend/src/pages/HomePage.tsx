@@ -26,7 +26,7 @@ export default function HomePage() {
       {/* Stats Banner */}
       {stats && (
         <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="w-full px-6 lg:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
                 { value: stats.total_animals, label: 'Species', icon: '🦁' },
@@ -46,7 +46,7 @@ export default function HomePage() {
       )}
 
       {/* Featured Wildlife */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section className="w-full px-6 lg:px-12 py-12">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display text-3xl font-bold text-white">Featured Wildlife</h2>
@@ -66,7 +66,7 @@ export default function HomePage() {
       </section>
 
       {/* Quick Links */}
-      <section className="max-w-7xl mx-auto px-4 pb-16">
+      <section className="w-full px-6 lg:px-12 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link to="/map" className="group info-card flex items-center gap-4">
             <div className="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🗺️</div>

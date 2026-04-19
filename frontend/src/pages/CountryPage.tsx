@@ -26,7 +26,7 @@ export default function CountryPage() {
 
   return (
     <div className="bg-forest-950 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="w-full px-6 lg:px-12 py-8">
         <div className="mb-4 text-sm text-forest-400">
           <Link to="/location" className="hover:text-emerald-400 transition">Explore</Link> <span className="mx-2">/</span> <span className="text-forest-200">{country?.name || code}</span>
         </div>

@@ -20,6 +20,9 @@ import QuizPage from './pages/QuizPage';
 import LocationPage from './pages/LocationPage';
 import ClassificationPage from './pages/ClassificationPage';
 import ConservationPage from './pages/ConservationPage';
+import ExtinctAnimalsPage from './pages/ExtinctAnimalsPage';
+import DeepSeaPage from './pages/DeepSeaPage';
+import BiomeDetailPage from './pages/BiomeDetailPage';
 
 export default function App() {
   const { loadUser, token } = useAuthStore();
@@ -37,9 +40,12 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/browse" element={<BrowsePage />} />
             <Route path="/biomes" element={<BiomesPage />} />
+            <Route path="/biome/:slug" element={<BiomeDetailPage />} />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/classification" element={<ClassificationPage />} />
             <Route path="/conservation" element={<ConservationPage />} />
+            <Route path="/extinct" element={<ExtinctAnimalsPage />} />
+            <Route path="/deep-sea" element={<DeepSeaPage />} />
             <Route path="/animal/:slug" element={<AnimalDetailPage />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/compare" element={<ComparePage />} />

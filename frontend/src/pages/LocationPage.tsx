@@ -53,7 +53,7 @@ export default function LocationPage() {
     return (
       <div className="animate-pulse">
         <div className="h-80 bg-forest-900" />
-        <div className="max-w-7xl mx-auto px-4 py-10 space-y-4">
+        <div className="w-full px-6 lg:px-12 py-10 space-y-4">
           {Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-20 bg-gray-200 rounded-xl" />)}
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function LocationPage() {
       {/* ── Hero ── */}
       <div className="relative overflow-hidden bg-forest-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1600&h=600&fit=crop&q=60')] bg-cover bg-center opacity-20" />
-        <div className="relative max-w-7xl mx-auto px-4 py-16 flex items-center gap-10">
+        <div className="relative w-full px-6 lg:px-12 py-16 flex items-center gap-10">
           {/* Icon */}
           <div className="hidden lg:flex flex-shrink-0 w-28 h-28 rounded-full bg-forest-800/60 border border-forest-600/40 items-center justify-center">
             <svg className="w-14 h-14 text-forest-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round">
@@ -107,7 +107,7 @@ export default function LocationPage() {
 
       {/* ── Continent pills ── */}
       <div className="bg-forest-900/80 border-y border-forest-700/50">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide">
+        <div className="w-full px-6 lg:px-12 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setSelectedContinent(null)}
             className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${
@@ -132,7 +132,7 @@ export default function LocationPage() {
       </div>
 
       {/* ── Intro text ── */}
-      <div className="max-w-7xl mx-auto px-4 pt-10 pb-6">
+      <div className="w-full px-6 lg:px-12 pt-10 pb-6">
         <div className="max-w-3xl">
           <p className="text-forest-200 text-lg leading-relaxed">
             <span className="text-3xl font-display font-bold text-white float-left mr-2 mt-1 leading-none">A</span>nimals inhabit every continent on Earth. From the savannas of Africa to the rainforests of South America, each region hosts unique species adapted to their environment.
@@ -144,7 +144,7 @@ export default function LocationPage() {
       </div>
 
       {/* ── Continent cards or country list ── */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+      <div className="w-full px-6 lg:px-12 pb-16">
         {!selectedContinent ? (
           <div className="space-y-3">
             {continents.map(c => (
