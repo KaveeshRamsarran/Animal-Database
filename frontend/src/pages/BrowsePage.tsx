@@ -1,8 +1,20 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getAnimals } from '../api/animals';
 import { proxyImage, placeholderImage, statusColor } from '../utils/helpers';
 import type { AnimalCard } from '../types';
+
+const CLASS_LABELS: Record<string, string> = {
+  Mammalia: 'Mammals',
+  Aves: 'Birds',
+  Reptilia: 'Reptiles',
+  Amphibia: 'Amphibians',
+  Actinopterygii: 'Fish',
+  Insecta: 'Insects',
+  Arachnida: 'Arachnids',
+  Chondrichthyes: 'Sharks & Rays',
+  Malacostraca: 'Crustaceans',
+};
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -10,13 +22,18 @@ export default function BrowsePage() {
   const [animals, setAnimals] = useState<AnimalCard[]>([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const classFilter = searchParams.get('class_name');
 
   useEffect(() => {
-    getAnimals({ page: 1, size: 500, sort: 'name_asc' })
+    setLoading(true);
+    const params: Record<string, unknown> = { page: 1, size: 500, sort: 'name_asc' };
+    if (classFilter) params.class_name = classFilter;
+    getAnimals(params as any)
       .then(data => setAnimals(data.items))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, []);
+  }, [classFilter]);
 
   // Scroll to hash anchor after load
   useEffect(() => {
@@ -59,8 +76,23 @@ export default function BrowsePage() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Stats Banner */}
       <div className="bg-gradient-to-r from-forest-800 to-forest-900 text-white rounded-2xl p-8 mb-10">
-        <h1 className="font-display text-4xl font-bold mb-2">Animals A-Z</h1>
-        <p className="text-forest-200 text-lg mb-6">Browse our complete encyclopedia of wildlife species</p>
+        <h1 className="font-display text-4xl font-bold mb-2">
+          {classFilter ? (CLASS_LABELS[classFilter] || classFilter) : 'Animals A-Z'}
+        </h1>
+        <p className="text-forest-200 text-lg mb-6">
+          {classFilter
+            ? `Browse all ${(CLASS_LABELS[classFilter] || classFilter).toLowerCase()} in our encyclopedia`
+            : 'Browse our complete encyclopedia of wildlife species'}
+        </p>
+        {classFilter && (
+          <button
+            onClick={() => setSearchParams({})}
+            className="mb-4 inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white px-4 py-2 rounded-full text-sm font-medium transition"
+          >
+            Showing: {CLASS_LABELS[classFilter] || classFilter}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        )}
         <div className="flex gap-8">
           <div>
             <div className="text-3xl font-bold">{totalSpecies}</div>
