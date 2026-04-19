@@ -32,13 +32,13 @@ export default function ComparePage() {
   }, [selectedIds]);
 
   const toggle = (id: number) => {
-    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : prev.length < 4 ? [...prev, id] : prev);
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : prev.length < 3 ? [...prev, id] : prev);
   };
 
   return (
     <div className="bg-forest-950 min-h-screen"><div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="font-display text-3xl font-bold text-white mb-2">Compare Species</h1>
-      <p className="text-forest-400 mb-6">Select 2-4 animals to compare side by side ({selectedIds.length}/4 selected)</p>
+      <p className="text-forest-400 mb-6">Select 2-3 animals to compare side by side ({selectedIds.length}/3 selected)</p>
 
       {compared.length >= 2 && (
         <div className="mb-10">
