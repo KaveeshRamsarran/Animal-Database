@@ -11,12 +11,33 @@ interface Props {
   className?: string;
 }
 
-// Color by observation count
-function getAreaColor(count: number): string {
-  if (count >= 50) return '#dc2626';
-  if (count >= 20) return '#ea580c';
-  if (count >= 5) return '#2d8a2d';
-  return '#1a7fe6';
+/* Conservation-status colour palette */
+const STATUS_COLORS: Record<string, string> = {
+  CR: '#991b1b', // dark red – Critically Endangered
+  EN: '#dc2626', // red – Endangered
+  VU: '#ea580c', // orange – Vulnerable
+  NT: '#ca8a04', // amber – Near Threatened
+  LC: '#16a34a', // green – Least Concern
+  DD: '#6b7280', // grey – Data Deficient
+  NE: '#9ca3af', // light grey – Not Evaluated
+  EW: '#7e22ce', // purple – Extinct in Wild
+  EX: '#1f2937', // near-black – Extinct
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  CR: 'Critically Endangered',
+  EN: 'Endangered',
+  VU: 'Vulnerable',
+  NT: 'Near Threatened',
+  LC: 'Least Concern',
+  DD: 'Data Deficient',
+  NE: 'Not Evaluated',
+  EW: 'Extinct in Wild',
+  EX: 'Extinct',
+};
+
+function getStatusColor(code?: string): string {
+  return code ? (STATUS_COLORS[code] || '#6b7280') : '#6b7280';
 }
 
 export default function MapView({ hotspots, onMarkerClick, center = [20, 0], zoom = 2, className = 'h-[600px]' }: Props) {
@@ -40,25 +61,25 @@ export default function MapView({ hotspots, onMarkerClick, center = [20, 0], zoo
     layerGroupRef.current.clearLayers();
 
     hotspots.forEach(h => {
-      const color = getAreaColor(h.observation_count);
-      // Radius based on observation count (min 50km, max 300km)
-      const radius = Math.min(300000, Math.max(50000, h.observation_count * 15000));
+      const code = h.conservation_status_code;
+      const color = getStatusColor(code);
+      const label = code ? (STATUS_LABELS[code] || code) : 'Unknown';
 
-      const circle = L.circle([h.latitude, h.longitude], {
-        radius,
+      const circle = L.circleMarker([h.latitude, h.longitude], {
+        radius: 7,
         color: color,
         weight: 2,
-        opacity: 0.8,
+        opacity: 0.9,
         fillColor: color,
-        fillOpacity: 0.25,
+        fillOpacity: 0.5,
       }).addTo(layerGroupRef.current!);
 
       circle.bindPopup(`
-        <div style="text-align:center;min-width:140px;padding:4px">
+        <div style="text-align:center;min-width:150px;padding:4px">
           ${h.thumbnail_url ? `<img src="/api/v1/images/proxy?url=${encodeURIComponent(h.thumbnail_url)}" style="width:100px;height:75px;object-fit:cover;border-radius:8px;margin:0 auto 8px" />` : ''}
           <div style="font-weight:700;font-size:14px;margin-bottom:2px">${h.animal_name}</div>
-          <div style="font-size:12px;color:#666">${h.observation_count} observations</div>
-          <a href="/animal/${h.animal_slug}" style="font-size:12px;color:#2d8a2d;text-decoration:none;font-weight:600">View Profile →</a>
+          <div style="display:inline-block;background:${color};color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:4px">${label}</div>
+          <div><a href="/animal/${h.animal_slug}" style="font-size:12px;color:#2d8a2d;text-decoration:none;font-weight:600">View Profile →</a></div>
         </div>
       `);
 

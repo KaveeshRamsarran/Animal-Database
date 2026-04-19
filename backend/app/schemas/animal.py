@@ -55,6 +55,7 @@ class AnimalCard(BaseModel):
     habitat_summary: str | None = None
     environment_type: str | None = None
     biome: str | None = None
+    behavior_summary: str | None = None
     observation_count: int = 0
 
     class Config:

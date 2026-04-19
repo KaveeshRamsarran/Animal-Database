@@ -2,6 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.models.occurrence import Occurrence
 from app.models.animal import Animal
+from app.models.conservation import ConservationStatus
 
 
 class OccurrenceRepository:
@@ -28,8 +29,10 @@ class OccurrenceRepository:
                 Occurrence.longitude,
                 Occurrence.country_code,
                 Occurrence.observation_count,
+                ConservationStatus.code.label("conservation_status_code"),
             )
             .join(Animal, Occurrence.animal_id == Animal.id)
+            .outerjoin(ConservationStatus, Animal.conservation_status_id == ConservationStatus.id)
         )
         if animal_id:
             q = q.where(Occurrence.animal_id == animal_id)

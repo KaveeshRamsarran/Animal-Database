@@ -11,6 +11,7 @@ class HotspotOut(BaseModel):
     longitude: float
     country_code: str | None = None
     observation_count: int = 1
+    conservation_status_code: str | None = None
 
     class Config:
         from_attributes = True

@@ -66,6 +66,7 @@ export interface AnimalCard {
   habitat_summary?: string;
   environment_type?: string;
   biome?: string;
+  behavior_summary?: string;
   observation_count: number;
 }
 
@@ -142,6 +143,7 @@ export interface HotspotOut {
   longitude: number;
   country_code?: string;
   observation_count: number;
+  conservation_status_code?: string;
 }
 
 export interface DistributionPoint {

@@ -30,6 +30,7 @@ export default function Navbar() {
               <Link to="/biomes" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Biomes</Link>
               <Link to="/explore" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Explore</Link>
               <Link to="/compare" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Compare</Link>
+              <Link to="/quiz" className="px-3 py-1.5 rounded text-sm font-medium hover:bg-white/10 transition">Quiz</Link>
             </div>
 
             <div className="hidden md:flex items-center gap-3">
@@ -66,6 +67,7 @@ export default function Navbar() {
               <Link to="/map" className="block py-2 text-forest-200 hover:text-white">Map</Link>
               <Link to="/explore" className="block py-2 text-forest-200 hover:text-white">Explore</Link>
               <Link to="/compare" className="block py-2 text-forest-200 hover:text-white">Compare</Link>
+              <Link to="/quiz" className="block py-2 text-forest-200 hover:text-white">Quiz</Link>
               {user ? (
                 <>
                   <Link to="/favorites" className="block py-2 text-forest-200 hover:text-white">Favorites</Link>
